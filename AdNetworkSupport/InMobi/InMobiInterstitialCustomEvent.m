@@ -44,8 +44,14 @@
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
+    
+    NSString *appId = [info objectForKey:@"INMOBI_AD_ID"];
+    if (!appId) {
+	    appId = kInMobiAppID;
+    }
+    
     MPLogInfo(@"Requesting InMobi interstitial");
-    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:kInMobiAppID];
+    self.inMobiInterstitial = [[MPInstanceProvider sharedProvider] buildIMInterstitialWithDelegate:self appId:appId];
     IMInMobiNetworkExtras *inmobiExtras = [[IMInMobiNetworkExtras alloc] init];
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setObject:@"c_mopub" forKey:@"tp"];

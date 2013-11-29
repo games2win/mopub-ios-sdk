@@ -81,11 +81,11 @@ forChartboostInterstitialCustomEvent:(ChartboostInterstitialCustomEvent *)event;
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
-    NSString *appId = [info objectForKey:@"appId"];
+    NSString *appId = [info objectForKey:@"CHARTBOOST_AD_ID"];
     if (!appId) {
         appId = kChartboostAppID;
     }
-    NSString *appSignature = [info objectForKey:@"appSignature"];
+    NSString *appSignature = [info objectForKey:@"CHARTBOOST_AD_SIGNATURE"];
     if (!appSignature) {
         appSignature = kChartboostAppSignature;
     }

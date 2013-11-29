@@ -45,6 +45,12 @@
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting InMobi banner");
+    
+    NSString *appId = [info objectForKey:@"INMOBI_AD_ID"];
+    if (!appId) {
+	    appId = kInMobiAppID;
+    }
+    
     int imAdSizeConstant = [self imAdSizeConstantForCGSize:size];
     if (imAdSizeConstant == INVALID_INMOBI_AD_SIZE) {
         MPLogInfo(@"Failed to create an inMobi Banner with invalid size %@", NSStringFromCGSize(size));
@@ -52,7 +58,7 @@
         return;
     }
 
-    self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:kInMobiAppID adSize:imAdSizeConstant];
+    self.inMobiBanner = [[MPInstanceProvider sharedProvider] buildIMBannerWithFrame:CGRectMake(0, 0, size.width, size.height) appId:appId adSize:imAdSizeConstant];
     self.inMobiBanner.delegate = self;
     self.inMobiBanner.refreshInterval = REFRESH_INTERVAL_OFF;
     IMInMobiNetworkExtras *inmobiExtras = [[IMInMobiNetworkExtras alloc] init];

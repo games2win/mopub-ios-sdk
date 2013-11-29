@@ -56,7 +56,13 @@
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting Greystripe banner");
-    self.greystripeBanner = [[MPInstanceProvider sharedProvider] buildGreystripeBannerAdViewWithDelegate:self GUID:kGreystripeGUID size:size];
+    
+    NSString *appId = [info objectForKey:@"GREYSTRIPE_AD_ID"];
+    if (!appId) {
+	    appId = kGreystripeGUID;
+    }
+    
+    self.greystripeBanner = [[MPInstanceProvider sharedProvider] buildGreystripeBannerAdViewWithDelegate:self GUID:appId size:size];
     if (!self.greystripeBanner) {
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
         return;

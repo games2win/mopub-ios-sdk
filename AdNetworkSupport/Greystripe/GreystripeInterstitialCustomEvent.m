@@ -45,7 +45,14 @@
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Requesting Greystripe interstitial");
-    self.greystripeFullscreenAd = [[MPInstanceProvider sharedProvider] buildGSFullscreenAdWithDelegate:self GUID:kGreystripeGUID];
+    
+    
+    NSString *appId = [info objectForKey:@"GREYSTRIPE_AD_ID"];
+    if (!appId) {
+	    appId = kGreystripeGUID;
+    }
+    
+    self.greystripeFullscreenAd = [[MPInstanceProvider sharedProvider] buildGSFullscreenAdWithDelegate:self GUID:appId];
 
     if (self.delegate.location) {
         [GSSDKInfo updateLocation:self.delegate.location];
